@@ -7,7 +7,7 @@
                         <slot name="role"></slot>
                     </div>
                     <div class="form-group w-25">
-                        <slot name="time-track"></slot>
+                        <slot name="timeTrack"></slot>
                     </div>
                 </div>
             </div>

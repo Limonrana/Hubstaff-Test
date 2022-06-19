@@ -27,7 +27,7 @@
                         :options="roleOptions"
                     ></custom-select>
                 </template>
-                <template slot="time-track">
+                <template slot="timeTrack">
                     <custom-select
                         v-model="timeTracking"
                         label="TIME TRACKING"

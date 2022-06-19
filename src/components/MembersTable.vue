@@ -51,9 +51,11 @@
                                                     class="b-avatar-text"
                                                 ></span>
                                             </span>
-                                            <span class="ml-2">{{
-                                                member.name
-                                            }}</span>
+                                            <span
+                                                class="ml-2"
+                                                :data-name="member.name"
+                                                >{{ member.name }}</span
+                                            >
                                         </div>
                                     </div>
                                 </td>
