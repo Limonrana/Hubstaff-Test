@@ -1,1 +1,21 @@
+@import 'base/variables.scss';
 @import 'base/typography.scss';
+
+/*------------------------------------------------------------------
+  Members Page CSS
+------------------------------------------------------------------*/
+.wrapper {
+    width: 1680px !important;
+    margin: 0 auto;
+    padding: 1.5rem;
+    .text-secondary-accent {
+        color: $theme-light-secondary;
+    }
+    .container-fluid {
+        // Top bar CSS
+
+        // Filter Bar CSS
+
+        // Members table CSS
+    }
+}
