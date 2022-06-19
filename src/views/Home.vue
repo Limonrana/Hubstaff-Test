@@ -40,7 +40,15 @@
             <div class="main-content">
                 <div class="tab-content">
                     <div class="tab-pane fade show active">
-                        <!-- TODO: Member list section start here -->
+                        <members-table
+                            :members="filterMembers"
+                            v-if="!isLoading"
+                        />
+                        <b-skeleton-table
+                            :rows="7"
+                            :columns="7"
+                            v-else
+                        ></b-skeleton-table>
                     </div>
                 </div>
             </div>
@@ -52,9 +60,10 @@
 <script>
 import CustomSelect from '../components/CustomSelect.vue'
 import FilterBar from '../components/FilterBar.vue'
+import MembersTable from '../components/MembersTable.vue'
 import TopBar from '../components/TopBar.vue'
 export default {
-    components: { TopBar, FilterBar, CustomSelect },
+    components: { TopBar, FilterBar, CustomSelect, MembersTable },
     name: 'Home',
     data() {
         return {
@@ -72,7 +81,73 @@ export default {
                 { text: 'Enabled', value: 'enabled' },
                 { text: 'Disabled', value: 'disabled' },
             ],
+            members: [
+                {
+                    id: 1,
+                    name: 'Jared Brown',
+                    role: 'Owner',
+                    projects: 8,
+                    payment: null,
+                    limits: {
+                        weekly: null,
+                        daily: 8,
+                    },
+                    time_tracking: 'enabled',
+                },
+                {
+                    id: 2,
+                    name: 'Adrian Goia',
+                    role: 'Viewer',
+                    projects: 5,
+                    payment: null,
+                    limits: {
+                        weekly: 50,
+                        daily: 8,
+                    },
+                    time_tracking: 'enabled',
+                },
+                {
+                    id: 3,
+                    name: 'Cody Rogers',
+                    role: 'Viewer',
+                    projects: 8,
+                    payment: null,
+                    limits: {
+                        weekly: 40,
+                        daily: null,
+                    },
+                    time_tracking: 'enabled',
+                },
+            ],
         }
+    },
+    computed: {
+        searchFilterMembers() {
+            return this.members.filter((member) => {
+                return member.name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase())
+            })
+        },
+        filterMembers() {
+            const members = this.searchFilterMembers.filter((member) => {
+                if (this.filterRole === 'all') {
+                    return true
+                }
+                return (
+                    member.role.toLowerCase() === this.filterRole.toLowerCase()
+                )
+            })
+            if (this.filterTimeTrack === 'all') {
+                return members
+            }
+            return members.filter((member) => {
+                return (
+                    member.time_tracking.toLowerCase() ===
+                    this.filterTimeTrack.toLowerCase()
+                )
+            })
+        },
     },
     mounted() {
         setTimeout(() => {

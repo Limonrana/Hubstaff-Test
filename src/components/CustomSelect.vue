@@ -73,12 +73,6 @@ export default {
                 }
             })
         },
-        selectListLeft() {
-            return (window.innerWidth - 565) / 2
-        },
-        selectListTop() {
-            return (window.innerHeight * 58) / 100
-        },
     },
     data() {
         return {
