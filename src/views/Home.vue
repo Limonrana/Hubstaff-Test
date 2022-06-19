@@ -9,9 +9,14 @@
         <!-- Header title section end here -->
         <div class="container-fluid">
             <!-- Top bar section start here -->
-
-            <!-- TODO: Top bar section start here -->
-
+            <top-bar>
+                <b-form-input
+                    v-model="search"
+                    placeholder="Search members"
+                    size="lg"
+                    trim
+                ></b-form-input>
+            </top-bar>
             <!-- Top bar section end here -->
             <!-- Filter bar section start here -->
 
@@ -32,7 +37,9 @@
 </template>
 
 <script>
+import TopBar from '../components/TopBar.vue'
 export default {
+    components: { TopBar },
     name: 'Home',
     data() {
         return {
