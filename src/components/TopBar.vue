@@ -4,8 +4,18 @@
             <div class="tab-bar">
                 <nav>
                     <div class="nav member-tabs">
-                        <a class="nav-link active" href="#">Members (2)</a>
-                        <a class="nav-link" href="#">Invites (4)</a>
+                        <a
+                            class="nav-link active"
+                            href="#"
+                            @click.prevent="handleClick"
+                            >Members (2)</a
+                        >
+                        <a
+                            class="nav-link"
+                            href="#"
+                            @click.prevent="handleClick"
+                            >Invites (4)</a
+                        >
                     </div>
                 </nav>
             </div>
@@ -37,6 +47,11 @@
 <script>
 export default {
     name: 'TopBar',
+    methods: {
+        handleClick() {
+            return false
+        },
+    },
 }
 </script>
 <style scoped lang="scss">
