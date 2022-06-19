@@ -19,9 +19,22 @@
             </top-bar>
             <!-- Top bar section end here -->
             <!-- Filter bar section start here -->
-
-            <!-- TODO: Filter bar section start here -->
-
+            <filter-bar>
+                <template slot="role">
+                    <custom-select
+                        v-model="filterRole"
+                        label="ROLE"
+                        :options="filterRoleOptions"
+                    ></custom-select>
+                </template>
+                <template slot="time-track">
+                    <custom-select
+                        v-model="filterTimeTrack"
+                        label="TIME TRACKING"
+                        :options="filterTimeTrackOptions"
+                    ></custom-select>
+                </template>
+            </filter-bar>
             <!-- Filter bar section end here -->
             <!-- Member list section start here -->
             <div class="main-content">
@@ -37,14 +50,28 @@
 </template>
 
 <script>
+import CustomSelect from '../components/CustomSelect.vue'
+import FilterBar from '../components/FilterBar.vue'
 import TopBar from '../components/TopBar.vue'
 export default {
-    components: { TopBar },
+    components: { TopBar, FilterBar, CustomSelect },
     name: 'Home',
     data() {
         return {
             isLoading: true,
             search: '',
+            filterRole: 'all',
+            filterRoleOptions: [
+                { text: 'All roles', value: 'all' },
+                { text: 'Owner', value: 'owner' },
+                { text: 'Viewer', value: 'viewer' },
+            ],
+            filterTimeTrack: 'all',
+            filterTimeTrackOptions: [
+                { text: 'All Time Tracking', value: 'all' },
+                { text: 'Enabled', value: 'enabled' },
+                { text: 'Disabled', value: 'disabled' },
+            ],
         }
     },
     mounted() {
