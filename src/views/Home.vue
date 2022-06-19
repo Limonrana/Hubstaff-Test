@@ -22,16 +22,16 @@
             <filter-bar>
                 <template slot="role">
                     <custom-select
-                        v-model="filterRole"
+                        v-model="role"
                         label="ROLE"
-                        :options="filterRoleOptions"
+                        :options="roleOptions"
                     ></custom-select>
                 </template>
                 <template slot="time-track">
                     <custom-select
-                        v-model="filterTimeTrack"
+                        v-model="timeTracking"
                         label="TIME TRACKING"
-                        :options="filterTimeTrackOptions"
+                        :options="timeTrackOptions"
                     ></custom-select>
                 </template>
             </filter-bar>
@@ -40,15 +40,15 @@
             <div class="main-content">
                 <div class="tab-content">
                     <div class="tab-pane fade show active">
-                        <members-table
-                            :members="filterMembers"
-                            v-if="!isLoading"
-                        />
-                        <b-skeleton-table
-                            :rows="7"
-                            :columns="7"
-                            v-else
-                        ></b-skeleton-table>
+                        <template v-if="!$store.state.isLoading">
+                            <members-table :members="filterMembers" />
+                        </template>
+                        <template v-else>
+                            <b-skeleton-table
+                                :rows="7"
+                                :columns="7"
+                            ></b-skeleton-table>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -67,92 +67,49 @@ export default {
     name: 'Home',
     data() {
         return {
-            isLoading: true,
-            search: '',
-            filterRole: 'all',
-            filterRoleOptions: [
+            roleOptions: [
                 { text: 'All roles', value: 'all' },
                 { text: 'Owner', value: 'owner' },
                 { text: 'Viewer', value: 'viewer' },
             ],
-            filterTimeTrack: 'all',
-            filterTimeTrackOptions: [
+            timeTrackOptions: [
                 { text: 'All Time Tracking', value: 'all' },
                 { text: 'Enabled', value: 'enabled' },
                 { text: 'Disabled', value: 'disabled' },
             ],
-            members: [
-                {
-                    id: 1,
-                    name: 'Jared Brown',
-                    role: 'Owner',
-                    projects: 8,
-                    payment: null,
-                    limits: {
-                        weekly: null,
-                        daily: 8,
-                    },
-                    time_tracking: 'enabled',
-                },
-                {
-                    id: 2,
-                    name: 'Adrian Goia',
-                    role: 'Viewer',
-                    projects: 5,
-                    payment: null,
-                    limits: {
-                        weekly: 50,
-                        daily: 8,
-                    },
-                    time_tracking: 'enabled',
-                },
-                {
-                    id: 3,
-                    name: 'Cody Rogers',
-                    role: 'Viewer',
-                    projects: 8,
-                    payment: null,
-                    limits: {
-                        weekly: 40,
-                        daily: null,
-                    },
-                    time_tracking: 'enabled',
-                },
-            ],
         }
     },
     computed: {
-        searchFilterMembers() {
-            return this.members.filter((member) => {
-                return member.name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase())
-            })
+        search: {
+            get() {
+                return this.$store.state.search
+            },
+            set(payload) {
+                this.$store.commit('setSearch', payload)
+            },
+        },
+        role: {
+            get() {
+                return this.$store.state.role
+            },
+            set(payload) {
+                this.$store.commit('setRole', payload)
+            },
+        },
+        timeTracking: {
+            get() {
+                return this.$store.state.timeTracking
+            },
+            set(payload) {
+                this.$store.commit('setTimeTracking', payload)
+            },
         },
         filterMembers() {
-            const members = this.searchFilterMembers.filter((member) => {
-                if (this.filterRole === 'all') {
-                    return true
-                }
-                return (
-                    member.role.toLowerCase() === this.filterRole.toLowerCase()
-                )
-            })
-            if (this.filterTimeTrack === 'all') {
-                return members
-            }
-            return members.filter((member) => {
-                return (
-                    member.time_tracking.toLowerCase() ===
-                    this.filterTimeTrack.toLowerCase()
-                )
-            })
+            return this.$store.getters.getFiterMembers
         },
     },
     mounted() {
-        setTimeout(() => {
-            this.isLoading = false
-        }, 1000)
+        this.$store.dispatch('fetchMembers')
     },
 }
 </script>

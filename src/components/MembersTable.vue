@@ -135,14 +135,26 @@
                                     >
                                 </td>
                                 <td class="cell100 column7">
-                                    <custom-select
-                                        v-model="action"
-                                        :options="actionOptions"
-                                    />
+                                    <b-dropdown
+                                        right
+                                        variant="outline-secondary"
+                                        text="Actions"
+                                    >
+                                        <b-dropdown-item href="#"
+                                            >Edit</b-dropdown-item
+                                        >
+                                    </b-dropdown>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="table100-footer">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <p>Showing 2 of 2 members</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,11 +164,10 @@
     </div>
 </template>
 <script>
-import CustomSelect from './CustomSelect.vue'
 import EmptyState from './EmptyState.vue'
 export default {
     name: 'MembersTable',
-    components: { CustomSelect, EmptyState },
+    components: { EmptyState },
     props: {
         members: {
             type: Array,
@@ -168,17 +179,119 @@ export default {
             return this.members
         },
     },
-    data() {
-        return {
-            action: 'action',
-            actionOptions: [
-                {
-                    text: 'Action',
-                    value: 'action',
-                },
-            ],
-        }
-    },
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import '../scss/base/variables.scss';
+.container-table100 {
+    width: 100%;
+    background: $theme-light-white;
+    .wrap-table100 {
+        width: 100%;
+    }
+    .table100 {
+        background-color: $theme-light-white;
+        position: relative;
+        padding-top: 60px;
+        border-radius: 10px;
+        overflow: hidden;
+        .table100-head {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            th {
+                padding-top: 18px;
+                padding-bottom: 18px;
+            }
+        }
+        table {
+            width: 100%;
+        }
+        th,
+        td {
+            font-weight: unset;
+            padding-right: 10px;
+        }
+        td {
+            font-size: 15px;
+            color: $theme-light-gray-dark;
+            line-height: 1.4;
+        }
+        th {
+            font-size: 18px;
+            line-height: 1.4;
+            color: $theme-light-gray-black;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .column1 {
+            width: 22%;
+            padding-left: 15px;
+        }
+
+        .column2 {
+            width: 10%;
+        }
+
+        .column3 {
+            width: 10%;
+        }
+
+        .column4 {
+            width: 20%;
+        }
+
+        .column5 {
+            width: 13%;
+        }
+        .column6 {
+            width: 13%;
+        }
+        .column7 {
+            width: 8%;
+            padding-right: 15px;
+            text-align: right;
+        }
+
+        .table100-body {
+            tr {
+                .edit-icon {
+                    display: none;
+                }
+                &:hover {
+                    .edit-icon {
+                        display: inline;
+                        cursor: pointer;
+                    }
+                }
+            }
+            tr:nth-child(even) {
+                background-clip: padding-box;
+                background-color: $theme-light-white-dark;
+            }
+            td {
+                padding-top: 18px;
+                padding-bottom: 18px;
+                .text-accent {
+                    color: $theme-light-accent !important;
+                }
+                &:hover {
+                    color: $theme-light-primary !important;
+                    .text-accent {
+                        color: $theme-light-primary !important;
+                    }
+                }
+                &:first-child {
+                    &:hover {
+                        color: $theme-light-gray-dark !important;
+                    }
+                }
+            }
+        }
+    }
+    .no-members {
+        height: 400px;
+    }
+}
+</style>

@@ -24,4 +24,19 @@ export default {
     name: 'FilterBar',
 }
 </script>
-<style scoped></style>
+<style scoped lang="scss">
+@import '../scss/base/variables.scss';
+.filter-bar {
+    .gap-5 {
+        gap: 20px;
+        .form-group.w-30 {
+            width: 30% !important;
+        }
+    }
+    .button-primary {
+        background: $theme-light-primary;
+        color: $theme-light-white;
+        border-color: $theme-light-primary;
+    }
+}
+</style>
