@@ -1,4 +1,14 @@
+@import './variables.scss';
 // Typography styles should go here
+h2 {
+    font-size: 2rem !important;
+    font-weight: 300 !important;
+    color: $theme-light-secondary !important;
+}
 h4 {
-  color: darkred;
+    color: darkred;
+}
+p {
+    color: $theme-light-secondary;
+    font-size: 14px;
 }
